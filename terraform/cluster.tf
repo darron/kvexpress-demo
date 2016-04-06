@@ -15,6 +15,7 @@ resource "aws_instance" "bootstrap" {
     connection {
       user = "ubuntu"
       key_file = "${var.key_path}"
+      agent = "false"
     }
 
     provisioner "remote-exec" {
@@ -50,6 +51,7 @@ resource "aws_instance" "server1" {
     connection {
       user = "ubuntu"
       key_file = "${var.key_path}"
+      agent = "false"
     }
 
     provisioner "remote-exec" {
@@ -82,6 +84,7 @@ resource "aws_instance" "server2" {
     connection {
       user = "ubuntu"
       key_file = "${var.key_path}"
+      agent = "false"
     }
 
     provisioner "remote-exec" {
@@ -115,6 +118,7 @@ resource "aws_instance" "client" {
     connection {
       user = "ubuntu"
       key_file = "${var.key_path}"
+      agent = "false"
     }
 
     provisioner "remote-exec" {
