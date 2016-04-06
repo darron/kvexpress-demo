@@ -23,3 +23,7 @@ variable "count" {
 variable "datadog_api_key" {
   default = "get-it-from-datadog"
 }
+
+variable "datadog_app_key" {
+  default = "get-it-from-datadog"
+}
