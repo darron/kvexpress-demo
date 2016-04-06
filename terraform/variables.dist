@@ -1,0 +1,25 @@
+variable "region" {
+    default = "us-west-2"
+}
+
+variable "key_name" {
+    default = "key-name-goes-here"
+}
+
+variable "key_path" {
+    default = "/path-to-private-key"
+}
+
+variable "amis" {
+    default = {
+        us-west-2 = "ami-you-have-to-build-it-first"
+    }
+}
+
+variable "count" {
+    default = "120"
+}
+
+variable "datadog_api_key" {
+  default = "get-it-from-datadog"
+}

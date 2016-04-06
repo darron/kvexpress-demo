@@ -1,0 +1,22 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": ""
+    },
+    "builders": [{
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key` }}",
+            "region": "us-west-2",
+            "source_ami": "ami-efb8518f",
+            "instance_type": "c3.large",
+            "ssh_username": "ubuntu",
+            "ami_name": "kvexpress-demo-{{timestamp}}"
+            }],
+
+    "provisioners": [{
+        "type": "shell",
+        "execute_command": "sudo -S sh '{{ .Path }}'",
+        "script": "ami-build/provision.sh"
+      }]
+}
