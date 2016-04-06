@@ -15,8 +15,9 @@ curl -s https://packagecloud.io/install/repositories/darron/consul-template/scri
 curl -s https://packagecloud.io/install/repositories/kvexpress/kvexpress/script.deb.sh | sudo bash
 curl -s https://packagecloud.io/install/repositories/darron/goshe/script.deb.sh | sudo bash
 curl -s https://packagecloud.io/install/repositories/darron/consul-cli/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/darron/sifter/script.deb.sh | sudo bash
 
-apt-get -y install consul consul-template consul-webui kvexpress goshe consul-cli
+apt-get -y install consul consul-template consul-webui kvexpress goshe consul-cli sifter
 
 mkdir -p /var/lib/consul
 mkdir -p /etc/consul.d/
