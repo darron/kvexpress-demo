@@ -4,7 +4,7 @@ NODE_NAME=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 sudo cat > /tmp/consul.json <<EOF
 {
   "client_addr": "127.0.0.1",
-  "statsd_addr": "127.0.0.1:8125",
+  "dogstatsd_addr": "127.0.0.1:8125",
   "data_dir": "/var/lib/consul",
   "node_name": "$NODE_NAME",
   "recursor": "8.8.8.8",
