@@ -28,7 +28,7 @@ cat > /etc/consul.d/hosts.json <<EOF
     {
       "type": "key",
       "key": "/kvexpress/hosts/checksum",
-      "handler": "kvexpress out -k hosts -f /etc/hosts.consul -l 300 -c 00644 -d true -e 'sudo pkill -HUP dnsmasq'"
+      "handler": "kvexpress out -k hosts -f /etc/hosts.consul -l 10 -c 00644 -d true -e 'sudo pkill -HUP dnsmasq'"
     }
   ]
 }
@@ -53,3 +53,21 @@ CONFIG_DIR=/etc/dnsmasq.d,.dpkg-dist,.dpkg-old,.dpkg-new
 EOF
 
 service dnsmasq restart
+
+# Install Datadog
+DD_API_KEY=$(cat /tmp/datadog-api-key)
+export DD_API_KEY=$DD_API_KEY
+bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/install_agent.sh)"
+cat > /etc/dd-agent/conf.d/consul.yaml <<EOF
+init_config:
+
+instances:
+    - url: http://localhost:8500
+      catalog_checks: yes
+      new_leader_checks: yes
+EOF
+
+# Cleanup and disable datadog.
+service datadog-agent stop
+rm -f /etc/dd-agent/datadog.conf
+update-rc.d datadog-agent disable
