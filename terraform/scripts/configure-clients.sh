@@ -55,3 +55,33 @@ EOF
 sudo mv -f /tmp/service.json /etc/consul.d/service-$ROLE.json
 sudo chown -R root.root /etc/consul.d/
 sudo service consul start
+
+# Add dns torture script.
+sudo cat > /tmp/dnspound.sh <<EOF
+#!/bin/bash
+DOMAINS=$(cat /etc/hosts.consul | cut -d ' ' -f 2 | sort | uniq)
+while [ 1 ];
+do
+  for domain in $DOMAINS
+  do
+    dig $domain
+  done
+done
+EOF
+sudo mv -f /tmp/dnspound.sh /usr/local/bin/dnspound.sh
+sudo chmod a+x /usr/local/bin/dnspound.sh
+
+# Add sifter protected event.
+sudo cat > /tmp/dnspound.json <<EOF
+{
+  "watches": [
+    {
+      "type": "event",
+      "name": "dnspound",
+      "handler": "sifter run -d true -e '/usr/local/bin/dnspound.sh'"
+    }
+  ]
+}
+EOF
+sudo mv -f /tmp/dnspound.json /etc/consul.d/dnspound.json
+sudo service consul reload
