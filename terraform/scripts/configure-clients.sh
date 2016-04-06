@@ -2,6 +2,22 @@
 IP_ADDRESS=$(ifconfig eth0 | grep "inet addr" | cut --delimiter=":" -f 2 | cut --delimiter=" " -f 1)
 NODE_NAME=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 BOOTSTRAP_SERVER=$(cat /tmp/consul-server-addr)
+
+# Add dns torture script.
+sudo cat > /tmp/dnspound.sh <<EOF
+#!/bin/bash
+DOMAINS=$(cat /etc/hosts.consul | cut -d ' ' -f 2 | sort | uniq)
+while [ 1 ];
+do
+  for domain in $DOMAINS
+  do
+    dig $domain
+  done
+done
+EOF
+sudo mv -f /tmp/dnspound.sh /usr/local/bin/dnspound.sh
+sudo chmod a+x /usr/local/bin/dnspound.sh
+
 sudo cat > /tmp/consul.json <<EOF
 {
   "client_addr": "127.0.0.1",
@@ -53,25 +69,7 @@ sudo cat > /tmp/service.json <<EOF
 }
 EOF
 sudo mv -f /tmp/service.json /etc/consul.d/service-$ROLE.json
-sudo chown -R root.root /etc/consul.d/
-sudo service consul start
 
-# Add dns torture script.
-sudo cat > /tmp/dnspound.sh <<EOF
-#!/bin/bash
-DOMAINS=$(cat /etc/hosts.consul | cut -d ' ' -f 2 | sort | uniq)
-while [ 1 ];
-do
-  for domain in $DOMAINS
-  do
-    dig $domain
-  done
-done
-EOF
-sudo mv -f /tmp/dnspound.sh /usr/local/bin/dnspound.sh
-sudo chmod a+x /usr/local/bin/dnspound.sh
-
-# Add sifter protected event.
 sudo cat > /tmp/dnspound.json <<EOF
 {
   "watches": [
@@ -84,4 +82,6 @@ sudo cat > /tmp/dnspound.json <<EOF
 }
 EOF
 sudo mv -f /tmp/dnspound.json /etc/consul.d/dnspound.json
-sudo service consul reload
+
+sudo chown -R root.root /etc/consul.d/
+sudo service consul start
