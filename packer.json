@@ -1,7 +1,8 @@
 {
     "variables": {
         "aws_access_key": "",
-        "aws_secret_key": ""
+        "aws_secret_key": "",
+        "datadog_api_key": "{{env `DATADOG_API_KEY`}}"
     },
     "builders": [{
             "type": "amazon-ebs",
@@ -15,6 +16,9 @@
             }],
 
     "provisioners": [{
+        "type": "shell",
+        "inline": "echo \"{{user `datadog_api_key`}}\" > /tmp/datadog-api-key"
+        },{
         "type": "shell",
         "execute_command": "sudo -S sh '{{ .Path }}'",
         "script": "ami-build/provision.sh"
