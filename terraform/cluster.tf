@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "bootstrap" {
     ami = "${lookup(var.amis, var.region)}"
-    instance_type = "m3.medium"
+    instance_type = "${var.consul_server_size}"
     security_groups = ["${aws_security_group.consul.name}"]
     key_name = "${var.key_name}"
 
@@ -39,7 +39,7 @@ output "server_address" {
 
 resource "aws_instance" "server1" {
     ami = "${lookup(var.amis, var.region)}"
-    instance_type = "m3.medium"
+    instance_type = "${var.consul_server_size}"
     security_groups = ["${aws_security_group.consul.name}"]
     key_name = "${var.key_name}"
 
@@ -71,7 +71,7 @@ resource "aws_instance" "server1" {
 
 resource "aws_instance" "server2" {
     ami = "${lookup(var.amis, var.region)}"
-    instance_type = "m3.medium"
+    instance_type = "${var.consul_server_size}"
     security_groups = ["${aws_security_group.consul.name}"]
     key_name = "${var.key_name}"
 
@@ -103,7 +103,7 @@ resource "aws_instance" "server2" {
 
 resource "aws_instance" "client" {
     ami = "${lookup(var.amis, var.region)}"
-    instance_type = "t1.micro"
+    instance_type = "${var.consul_client_size}"
     security_groups = ["${aws_security_group.consul.name}"]
     key_name = "${var.key_name}"
     count = "${var.count}"

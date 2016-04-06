@@ -2,6 +2,14 @@ variable "region" {
     default = "us-west-2"
 }
 
+variable "consul_server_size" {
+    default = "m3.medium"
+}
+
+variable "consul_client_size" {
+    default = "t1.micro"
+}
+
 variable "key_name" {
     default = "key-name-goes-here"
 }
