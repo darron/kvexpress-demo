@@ -19,14 +19,16 @@ resource "aws_instance" "bootstrap" {
 
     provisioner "remote-exec" {
     inline = [
-        "echo ${var.datadog_api_key} > /tmp/datadog-api-key"
+        "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
       ]
     }
 
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
-        "./scripts/configure-bootstrap.sh"
+        "./scripts/configure-bootstrap.sh",
+        "./scripts/hosts.sh"
       ]
     }
 }
@@ -53,14 +55,16 @@ resource "aws_instance" "server1" {
     provisioner "remote-exec" {
     inline = [
         "echo ${aws_instance.bootstrap.private_dns} > /tmp/consul-server-addr",
-        "echo ${var.datadog_api_key} > /tmp/datadog-api-key"
+        "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
       ]
     }
 
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
-        "./scripts/configure-servers.sh"
+        "./scripts/configure-servers.sh",
+        "./scripts/hosts.sh"
       ]
     }
 }
@@ -83,14 +87,16 @@ resource "aws_instance" "server2" {
     provisioner "remote-exec" {
     inline = [
         "echo ${aws_instance.bootstrap.private_dns} > /tmp/consul-server-addr",
-        "echo ${var.datadog_api_key} > /tmp/datadog-api-key"
+        "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
       ]
     }
 
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
-        "./scripts/configure-servers.sh"
+        "./scripts/configure-servers.sh",
+        "./scripts/hosts.sh"
       ]
     }
 }
