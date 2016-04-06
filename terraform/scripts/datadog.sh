@@ -13,7 +13,7 @@ EOF
 sudo mv -f /tmp/datadog.conf /etc/dd-agent/datadog.conf
 
 # Start it up.
-sudo update-rc.d datadog-agent enable
+# sudo update-rc.d datadog-agent enable
 sudo service datadog-agent restart || true
 
 cat > /tmp/goshednsmasq.conf <<EOF
