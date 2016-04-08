@@ -15,6 +15,8 @@ Properly executed, it will spin up 3 Consul Servers and N number of Consul clien
 
 All nodes will be connected to the Consul servers and a dynamically generated hosts file will be created and passed to all nodes using kvexpress.
 
+This has been tested with 500 and 1000 client nodes successfully.
+
 **IMPORTANT NOTE:** If you execute this demo - it will cost you money. Please don't leave your 123 nodes running any longer than you need to.
 
 Requirements
@@ -40,5 +42,6 @@ Instructions
 7. As all the nodes are coming online, you should start seeing `kvexpress.in`, `kvexpress.out` and other [kvexpress](https://github.com/DataDog/kvexpress) related metrics flowing into datadog. Some example metrics can be seen [here](https://github.com/darron/kvexpress-demo/blob/master/example-metrics.jpg).
 8. All dns queries to dnsmasq will generate `goshe.dnsmasq.queries` metrics through [goshe](https://github.com/darron/goshe).
 9. Some example metrics definitions are [available here](https://gist.github.com/darron/440b42a567d4126eec0fab484a2d31b3).
-10. Removing a node - just kill one or stop Consul on the node - which will automatically update the dynamically generated hosts file located at `/etc/hosts.consul`. Run `sudo service consul stop` to stop Consul. Take a look at that file on all *other* nodes.
-11. Everytime the file changes, a diff is sent to Datadog. Take a look at [some example events](https://github.com/darron/kvexpress-demo/blob/master/kvexpress-events.jpg).
+10. Removing a node - just kill one or stop Consul on the node - will automatically update the dynamically generated hosts file located at `/etc/hosts.consul`. Run `sudo service consul stop` to stop Consul. Take a look at that file on all *other* nodes.
+11. Every time the file changes, a diff is sent to Datadog. Take a look at [some example events](https://github.com/darron/kvexpress-demo/blob/master/kvexpress-events.jpg).
+12. Make sure to destroy your cluster: `make destroy`
