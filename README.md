@@ -1,7 +1,7 @@
 kvexpress demo
 =======================
 
-This demo was prepared for ["Running Consul at Scale—Journey from RFC to Production" at SREcon 2016 in Santa Clara, CA](https://www.usenix.org/conference/srecon16/program/presentation/froese).
+This demo was prepared for ["Running Consul at Scale—Journey from RFC to Production" at SREcon 2016 in Santa Clara, CA](https://blog.froese.org/2016/04/08/srecon-running-consul-at-scale/).
 
 Properly executed, it will spin up 3 Consul Servers and N number of Consul client nodes. These nodes will be setup with:
 
