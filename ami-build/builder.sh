@@ -20,3 +20,5 @@ echo 'eval "$(direnv hook bash)"' >> /home/ubuntu/.bashrc
 # 3. Create terraform/variables.tf
 git config --global user.name "My Name"
 git config --global user.email example@example.org
+echo '* soft nofile 8192' | sudo tee -a /etc/security/limits.conf
+echo '* hard nofile 8192' | sudo tee -a /etc/security/limits.conf
