@@ -44,4 +44,4 @@ Instructions
 9. Some example metrics definitions are [available here](https://gist.github.com/darron/440b42a567d4126eec0fab484a2d31b3).
 10. Removing a node - just kill one or stop Consul on the node - will automatically update the dynamically generated hosts file located at `/etc/hosts.consul`. Run `sudo service consul stop` to stop Consul. Take a look at that file on all *other* nodes.
 11. Every time the file changes, a diff is sent to Datadog. Take a look at [some example events](https://github.com/darron/kvexpress-demo/blob/master/kvexpress-events.jpg).
-12. Make sure to destroy your cluster: `make destroy`
+12. Make sure to destroy your cluster: `make destroy`. **PLEASE NOTE:** At larger cluster sizes - more than 200 nodes - Terraform may NOT be able to destroy your cluster cleanly because of AWS API errors. You may need to destroy your cluster using the web UI manually.
