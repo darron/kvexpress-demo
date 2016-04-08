@@ -39,7 +39,7 @@ Instructions
 4. Update `terraform/variables.tf` with the AMI id.
 5. `make cluster` - build the entire cluster of nodes.
 6. Once the first 3 nodes are created - in order to activate the hosts creation process, log into one of those three nodes and run the commands located in [hosts-activate.sh](https://github.com/darron/kvexpress-demo/blob/master/terraform/scripts/hosts-activate.sh)
-7. As all the nodes are coming online, you should start seeing `kvexpress.in`, `kvexpress.out` and other [kvexpress](https://github.com/DataDog/kvexpress) related metrics flowing into datadog. Some example metrics can be seen [here](https://github.com/darron/kvexpress-demo/blob/master/example-metrics.jpg).
+7. As all the nodes are coming online, you should start seeing `kvexpress.in`, `kvexpress.out` and other [kvexpress](https://github.com/DataDog/kvexpress) related metrics flowing into Datadog. Some example metrics can be seen [here](https://github.com/darron/kvexpress-demo/blob/master/example-metrics.jpg).
 8. All dns queries to dnsmasq will generate `goshe.dnsmasq.queries` metrics through [goshe](https://github.com/darron/goshe).
 9. Some example metrics definitions are [available here](https://gist.github.com/darron/440b42a567d4126eec0fab484a2d31b3).
 10. Removing a node - just kill one or stop Consul on the node - will automatically update the dynamically generated hosts file located at `/etc/hosts.consul`. Run `sudo service consul stop` to stop Consul. Take a look at that file on all *other* nodes.
