@@ -3,7 +3,7 @@
 # How I build a packer / terraform box on AWS so that I can build and deploy from there.
 
 apt-get install -y git unzip make
-curl -s https://github.com/darron.keys >> /home/ubuntu/.ssh/authorized_keys
+curl -s https://github.com/your-name-goes-here.keys >> /home/ubuntu/.ssh/authorized_keys
 cd /usr/local/bin/
 wget https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip
 wget https://releases.hashicorp.com/terraform/0.6.14/terraform_0.6.14_linux_amd64.zip
