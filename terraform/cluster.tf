@@ -21,7 +21,8 @@ resource "aws_instance" "bootstrap" {
     provisioner "remote-exec" {
     inline = [
         "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
-        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key",
+        "echo 'consul-server' > /tmp/datadog-tag"
       ]
     }
 
@@ -58,7 +59,8 @@ resource "aws_instance" "server1" {
     inline = [
         "echo ${aws_instance.bootstrap.private_dns} > /tmp/consul-server-addr",
         "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
-        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key",
+        "echo 'consul-server' > /tmp/datadog-tag"
       ]
     }
 
@@ -91,7 +93,8 @@ resource "aws_instance" "server2" {
     inline = [
         "echo ${aws_instance.bootstrap.private_dns} > /tmp/consul-server-addr",
         "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
-        "echo ${var.datadog_app_key} > /tmp/datadog-app-key"
+        "echo ${var.datadog_app_key} > /tmp/datadog-app-key",
+        "echo 'consul-server' > /tmp/datadog-tag"
       ]
     }
 
@@ -126,7 +129,8 @@ resource "aws_instance" "client" {
         "echo ${aws_instance.bootstrap.private_dns} > /tmp/consul-server-addr",
         "echo ${aws_instance.server1.private_dns} > /tmp/server1-addr",
         "echo ${aws_instance.server2.private_dns} > /tmp/server2-addr",
-        "echo ${var.datadog_api_key} > /tmp/datadog-api-key"
+        "echo ${var.datadog_api_key} > /tmp/datadog-api-key",
+        "echo 'consul-agent' > /tmp/datadog-tag"
       ]
     }
 
