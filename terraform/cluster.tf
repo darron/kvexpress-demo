@@ -29,6 +29,7 @@ resource "aws_instance" "bootstrap" {
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
+        "./scripts/hosts-watch.sh",
         "./scripts/configure-bootstrap.sh",
         "./scripts/hosts.sh"
       ]
@@ -67,6 +68,7 @@ resource "aws_instance" "server1" {
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
+        "./scripts/hosts-watch.sh",
         "./scripts/configure-servers.sh",
         "./scripts/hosts.sh"
       ]
@@ -101,6 +103,7 @@ resource "aws_instance" "server2" {
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
+        "./scripts/hosts-watch.sh",
         "./scripts/configure-servers.sh",
         "./scripts/hosts.sh"
       ]
@@ -137,6 +140,7 @@ resource "aws_instance" "client" {
     provisioner "remote-exec" {
     scripts = [
         "./scripts/datadog.sh",
+        "./scripts/hosts-watch.sh",
         "./scripts/configure-clients.sh"
       ]
     }

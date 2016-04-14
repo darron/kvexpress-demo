@@ -30,7 +30,7 @@ syslog {
 template {
   source = "/etc/consul-template/templates/hosts.ctmpl"
   destination = "/etc/consul-template/output/config_hosts"
-  command = "KVEXPRESS_DEBUG=1 /usr/local/bin/kvexpress in -C /etc/kvexpress.yaml --file='/etc/consul-template/output/config_hosts' --key='hosts' --length=10 --sorted true"
+  command = "KVEXPRESS_DEBUG=1 /usr/local/bin/kvexpress in -C /etc/kvexpress.yaml --file='/etc/consul-template/output/config_hosts' --key='hosts' --length=1 --sorted true --compress true"
 }
 EOF
 
