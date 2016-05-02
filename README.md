@@ -15,7 +15,7 @@ Properly executed, it will spin up 3 Consul Servers and N number of Consul clien
 
 All nodes will be connected to the Consul servers and a dynamically generated hosts file will be created and passed to all nodes using kvexpress.
 
-This has been tested with 500 and 1000 client nodes successfully.
+This has been tested with 500 to 2500 client nodes successfully.
 
 **IMPORTANT NOTE:** If you execute this demo - it will cost you money. Please don't leave your 123 nodes running any longer than you need to.
 
