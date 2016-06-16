@@ -28,7 +28,7 @@ emits goshednsmasq-up
 start on runlevel [2345]
 stop on runlevel [!2345]
 
-exec /usr/local/bin/goshe dnsmasq
+exec /usr/local/bin/goshe dnsmasq --mem=true
 
 post-start exec initctl emit goshednsmasq-up
 

@@ -19,6 +19,12 @@ curl -s https://packagecloud.io/install/repositories/darron/sifter/script.deb.sh
 
 apt-get -y install consul consul-template consul-webui kvexpress goshe consul-cli sifter
 
+# Install beta version of goshe for testing.
+wget -q http://shared.froese.org/2016/goshe-0.5-dev-linux-x86_64.gz
+gunzip goshe-0.5-dev-linux-x86_64.gz
+mv -f goshe-0.5-dev-linux-x86_64 /usr/local/bin/goshe
+chmod 755 /usr/local/bin/goshe
+
 mkdir -p /var/lib/consul
 mkdir -p /etc/consul.d/
 
@@ -57,6 +63,7 @@ service dnsmasq restart
 
 # Install Datadog
 DD_API_KEY=$(cat /tmp/datadog-api-key)
+DD_APP_KEY=$(cat /tmp/datadog-app-key)
 export DD_API_KEY=$DD_API_KEY
 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/install_agent.sh)"
 cat > /etc/dd-agent/conf.d/consul.yaml <<EOF
@@ -72,3 +79,15 @@ EOF
 service datadog-agent stop
 rm -f /etc/dd-agent/datadog.conf
 update-rc.d datadog-agent disable
+
+# Let's install the datadog python client.
+apt-get install -y python-pip python-dev
+pip install datadog
+
+cat > /etc/dogrc <<EOF
+[Connection]
+appkey = $DD_APP_KEY
+apikey = $DD_API_KEY
+EOF
+
+chmod 644 /etc/dogrc
